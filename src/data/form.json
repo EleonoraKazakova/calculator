@@ -1,0 +1,8 @@
+{
+  "title": {
+    "label": "Title",
+    "placeholder": "Desserts",
+    "type": "text",
+    "required": true
+  }
+}

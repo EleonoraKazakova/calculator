@@ -1,0 +1,101 @@
+body {
+  margin: 0;
+  background-color: #3b4664;
+  font-size: 16px;
+}
+
+h2, h3, h4, p {
+  margin: 0;
+  padding: 0;
+}
+
+.app-grid {
+  display: grid;
+  grid-template-columns: 400px auto 400px;
+  grid-template-rows: 200px auto 200px;
+  min-height: 100vh;
+}
+
+.app-content {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  background-color: #3b4664;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: center;
+}
+
+.app-display {
+  width: 540px;
+  height: 128px;
+  background-color: #181f32;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: 20px;
+  font-size: 36px;
+}
+
+.app-block-buttons {
+  width: 540px;
+  height: 480px;
+  background-color: #252d44;
+  border: none;
+  border-radius: 10px;
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.app-button {
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  height: 60px;
+  border-radius: 5px;
+  background-color: #eae3db;
+  -webkit-box-shadow: 0 5px 0 #afa99b,0 7px 2px rgba(0,0,0,0.25);
+}
+
+.app-line-buttons {
+  display: flex;
+  gap: 25px;
+  flex-direction: row;
+}
+
+.app-button-long-blue {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 230px;
+  height: 60px;
+  border-radius: 5px;
+  background-color: #647299;
+  -webkit-box-shadow: 0 5px 0 #424e76,0 7px 2px rgba(0,0,0,0.25);
+}
+
+.app-button-long-red {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 230px;
+  height: 60px;
+  border-radius: 5px;
+  background-color: #cf4032;
+  -webkit-box-shadow: 0 5px 0 #8f2316,0 7px 2px rgba(0,0,0,0.25);
+}
+
+.app-line-buttons-long {
+  display: flex;
+  gap: 25px;
+  flex-direction: row;
+}
+
