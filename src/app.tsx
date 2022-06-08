@@ -1,31 +1,19 @@
 import * as React from "react";
 import "./styles/app";
 import numbersData from "./data/numbersData.json";
+import InputField from "./InputField";
 
 export default function App() {
   const [result, setResult] = React.useState<(string | number)[]>([]);
   const [input, setInput] = React.useState<(string | number)[]>([0]);
-
-  const blockOne = numbersData.lineOne.map((el) => (
-    <input
-      type="button"
-      value={el}
-      className="app-button"
-      onClick={(event) =>
-        el === "+"
-          ? runOperation(event.currentTarget.value)
-          : inputNumber(event.currentTarget.value)
-      }
-    />
-  ));
+  const [currentSign, setCurrentSign] = React.useState<string>("");
 
   function inputNumber(num: number | string) {
     input[0] === 0 ? input.shift() : null;
     setInput([...input, num]);
   }
 
-  const [currentSign, setCurrentSign] = React.useState<string>("");
-  const runOperation = (sign: string) => {
+  function runOperation(sign: string) {
     setCurrentSign(sign);
     setInput([]);
     if (result.length > 0 && input.length > 0) {
@@ -34,7 +22,7 @@ export default function App() {
       setResult(input);
     }
     console.log("calculate(sign):", calculate(sign));
-  };
+  }
 
   const calculate = (sign: string): number => {
     if (sign === "/") {
@@ -49,6 +37,24 @@ export default function App() {
       return Number(result);
     }
   };
+
+  const blockOne = numbersData.allNumbers.map((value: number | string) => (
+    <InputField
+      value={value}
+      runOperation={runOperation}
+      inputNumber={inputNumber}
+    />
+    /*<input
+      type="button"
+      value={el}
+      className="app-button"
+      onClick={(event) =>
+        el === "+"
+          ? runOperation(event.currentTarget.value)
+          : inputNumber(event.currentTarget.value)
+      }
+    />*/
+  ));
 
   const reset = () => {
     setInput([0]);
@@ -65,7 +71,6 @@ export default function App() {
       <div></div>
       <div className="app-content">
         <div className="app-display">
-          {/*input*/}
           <p>
             {result.join("")}
             {currentSign}

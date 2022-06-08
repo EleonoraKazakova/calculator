@@ -1,13 +1,28 @@
-export default function InputField({ setup, state }) {
-  const [value, setValue] = state;
+import * as React from "react";
+interface InputFieldProps {
+  value: number | string;
+  inputNumber: React.Dispatch<React.SetStateAction<number | string>>;
+  runOperation: React.Dispatch<React.SetStateAction<number | string>>;
+}
+
+export default function InputField({
+  value,
+  inputNumber,
+  runOperation,
+}: InputFieldProps) {
+  console.log(value);
   return (
     <input
       value={value}
       type="button"
-      onChange={(event) =>
-        value === "+"
-          ? runOperation(event.currentTarget.value)
-          : inputNumber(event.currentTarget.value)
+      onClick={() =>
+        value === "+" ||
+        value === "-" ||
+        value === "*" ||
+        value === "/" ||
+        value === "DEL"
+          ? runOperation(value)
+          : inputNumber(value)
       }
     />
   );
