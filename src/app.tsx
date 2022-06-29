@@ -2,78 +2,76 @@ import * as React from "react";
 import "./styles/app";
 import numbersData from "./data/numbersData.json";
 import InputField from "./InputField";
+import spliceArr from "./spliceArr";
 
 export default function App() {
   const [result, setResult] = React.useState<(string | number)[]>([]);
-  const [input, setInput] = React.useState<(string | number)[]>([0]);
-  const [currentNumbers, setCurrentNumbers] = React.useState<
-    (number | string)[]
-  >([]);
+  const [currentNumbers, setCurrentNumbers] = React.useState<string[]>([]);
   const [currentSign, setCurrentSign] = React.useState<string>("");
   const [showResult, setShowResult] = React.useState<boolean>(false);
+  const [firstNumber, setFirstNumber] = React.useState<(number | string)[]>([]);
+  const [secondNumber, setSecondNumber] = React.useState<(number | string)[]>(
+    []
+  );
 
-  function inputNumber(num: number | string) {
-    input[0] === 0 ? input.shift() : null;
-    setInput([...input, num]);
-  }
-
-  function runOperation(sign: string): void {
-    setCurrentSign(sign);
-
-    setInput([]);
-    if (result.length > 0 && input.length > 0) {
-      calculate(currentSign);
-    } else {
-      setResult(input);
-    }
-    console.log("calculate(sign):", calculate(sign));
-  }
-
-  function calculate(sign: string): void {
-    console.log("result1:", result);
-    if (sign === "/") {
-      setResult([
-        (Number(result.join("")) / Number(input.join(""))).toString(),
-      ]);
-    } else if (sign === "x") {
-      setResult([
-        (Number(result.join("")) * Number(input.join(""))).toString(),
-      ]);
-    } else if (sign === "+") {
-      setResult([
-        (Number(result.join("")) + Number(input.join(""))).toString(),
-      ]);
-    } else if (sign === "-") {
-      setResult([
-        (Number(result.join("")) - Number(input.join(""))).toString(),
-      ]);
-      setResult([input.join("")]);
-    } else if (sign === "=") {
-      setResult([
-        (Number(result.join("")) + Number(input.join(""))).toString(),
-      ]);
+  function runOperation(): void {
+    currentNumbers.map((str) => str.split("+"));
+    let outcome;
+    switch (currentSign) {
+      case "+":
+        outcome = Number(currentNumbers[0]) + Number(currentNumbers[1]);
+        setResult([outcome]);
+        setShowResult(!showResult);
+        break;
+      case "-":
+        outcome = Number(currentNumbers[0]) - Number(currentNumbers[1]);
+        setResult([outcome]);
+        setShowResult(!showResult);
+        break;
+      case "*":
+        outcome = Number(currentNumbers[0]) * Number(currentNumbers[1]);
+        setResult([outcome]);
+        setShowResult(!showResult);
+        break;
+      case "x":
+        outcome = Number(currentNumbers[0]) * Number(currentNumbers[1]);
+        setResult([outcome]);
+        setShowResult(!showResult);
+        break;
+      case "/":
+        outcome = Number(currentNumbers[0]) / Number(currentNumbers[1]);
+        setResult([outcome]);
+        setShowResult(!showResult);
+        break;
+      case "DEL":
+        outcome = Number(currentNumbers[0]) / Number(currentNumbers[1]);
+        setResult([outcome]);
+        setShowResult(!showResult);
+        break;
     }
   }
 
   const blockOne = numbersData.allNumbers.map((value: number | string) => (
     <InputField
       value={value}
-      runOperation={runOperation}
-      inputNumber={inputNumber}
       setCurrentNumbers={setCurrentNumbers}
       currentNumbers={currentNumbers}
       setCurrentSign={setCurrentSign}
+      setFirstNumber={setFirstNumber}
+      setSecondNumber={setSecondNumber}
     />
   ));
 
   const reset = () => {
-    setInput([0]);
     setResult([]);
     setCurrentSign("");
+    setCurrentNumbers([]);
+    setShowResult(!showResult);
   };
 
   console.log("currentNumbers: ", currentNumbers);
-
+  console.log("firstNumber: ", firstNumber);
+  console.log("secondNumber: ", secondNumber);
   console.log("result: ", result);
   console.log("currentSign: ", currentSign);
 
@@ -82,11 +80,16 @@ export default function App() {
       <div></div>
       <div className="app-content">
         <div className="app-display">
-          <p>
-            {result}
-            {currentSign}
-            {input.join("")}
-          </p>
+          <div>
+            {currentNumbers.length === 0 ? 0 : null}
+            {showResult ? (
+              result
+            ) : (
+              <>
+                {currentNumbers[0]} {currentSign} {currentNumbers[1]}
+              </>
+            )}
+          </div>
         </div>
 
         <div className="app-block-buttons">
@@ -96,10 +99,7 @@ export default function App() {
             <div className="app-button-long-blue" onClick={reset}>
               RESET
             </div>
-            <div
-              className="app-button-long-red"
-              onClick={() => runOperation("=")}
-            >
+            <div className="app-button-long-red" onClick={() => runOperation()}>
               =
             </div>
           </div>
