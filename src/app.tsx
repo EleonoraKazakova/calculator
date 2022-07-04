@@ -3,19 +3,22 @@ import "./styles/app";
 import numbersData from "./data/numbersData.json";
 import InputField from "./InputField";
 import spliceArr from "./spliceArr";
+import splitNumbers from "./splitNumbers";
 
 export default function App() {
-  const [result, setResult] = React.useState<(string | number)[]>([]);
-  const [currentNumbers, setCurrentNumbers] = React.useState<string[]>([]);
+  const [result, setResult] = React.useState<number>(0);
+  const [currentNumbers, setCurrentNumbers] = React.useState<string>("");
   const [currentSign, setCurrentSign] = React.useState<string>("");
   const [showResult, setShowResult] = React.useState<boolean>(false);
-  const [firstNumber, setFirstNumber] = React.useState<(number | string)[]>([]);
-  const [secondNumber, setSecondNumber] = React.useState<(number | string)[]>(
-    []
-  );
 
   function runOperation(): void {
-    currentNumbers.map((str) => str.split("+"));
+    const newResult: { numbers: string[]; sign: string } =
+      splitNumbers(currentNumbers);
+    if (newResult.sign === "+") {
+      setResult(Number(newResult.numbers[0]) + Number(newResult.numbers[1]));
+      setShowResult(true);
+    }
+    /*currentNumbers.map((str) => str.split("+"));
     let outcome;
     switch (currentSign) {
       case "+":
@@ -48,30 +51,22 @@ export default function App() {
         setResult([outcome]);
         setShowResult(!showResult);
         break;
-    }
+    }*/
   }
 
   const blockOne = numbersData.allNumbers.map((value: number | string) => (
-    <InputField
-      value={value}
-      setCurrentNumbers={setCurrentNumbers}
-      currentNumbers={currentNumbers}
-      setCurrentSign={setCurrentSign}
-      setFirstNumber={setFirstNumber}
-      setSecondNumber={setSecondNumber}
-    />
+    <InputField value={value} setCurrentNumbers={setCurrentNumbers} />
   ));
 
   const reset = () => {
-    setResult([]);
+    setResult(0);
     setCurrentSign("");
-    setCurrentNumbers([]);
-    setShowResult(!showResult);
+    setCurrentNumbers("");
+    setShowResult(false);
   };
 
   console.log("currentNumbers: ", currentNumbers);
-  console.log("firstNumber: ", firstNumber);
-  console.log("secondNumber: ", secondNumber);
+
   console.log("result: ", result);
   console.log("currentSign: ", currentSign);
 
@@ -82,13 +77,7 @@ export default function App() {
         <div className="app-display">
           <div>
             {currentNumbers.length === 0 ? 0 : null}
-            {showResult ? (
-              result
-            ) : (
-              <>
-                {currentNumbers[0]} {currentSign} {currentNumbers[1]}
-              </>
-            )}
+            {showResult ? result : currentNumbers}
           </div>
         </div>
 
