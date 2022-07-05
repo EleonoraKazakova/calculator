@@ -1,6 +1,10 @@
-# Frontend Mentor - Calculator app
+# Calculator app
 
-(./design/desktop-preview.jpg)
+## Public address
+
+https://eleonorakazakova.github.io/calculator/
+
+![image](./design/desktop-preview.jpg)
 
 Users should be able to:
 
