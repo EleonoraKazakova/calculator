@@ -16,11 +16,21 @@ export default function splitNumbers(numbers: string): {
   } else if (numbers.includes("+")) {
     newResult.numbers.push(...numbers.split("+"));
     newResult.sign = "+";
+  } else if (numbers.includes("/")) {
+    newResult.numbers.push(...numbers.split("/"));
+    newResult.sign = "/";
+  } else if (numbers.includes("DEL")) {
+    newResult.numbers.push(...numbers.split("DEL"));
+    newResult.sign = "DEL";
+  } else if (numbers.includes("*")) {
+    newResult.numbers.push(...numbers.split("*"));
+    newResult.sign = "*";
+  } else if (numbers.includes("x")) {
+    newResult.numbers.push(...numbers.split("x"));
+    newResult.sign = "x";
   }
 
   console.log("result:", newResult);
-  /*if (newResult.some((el) => el.includes("+") || el.includes("-"))) {
-    return splitNumbers(newResult);
-  }*/
+
   return newResult;
 }

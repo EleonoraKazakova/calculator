@@ -2,7 +2,6 @@ import * as React from "react";
 import "./styles/app";
 import numbersData from "./data/numbersData.json";
 import InputField from "./InputField";
-import spliceArr from "./spliceArr";
 import splitNumbers from "./splitNumbers";
 
 export default function App() {
@@ -14,48 +13,41 @@ export default function App() {
   function runOperation(): void {
     const newResult: { numbers: string[]; sign: string } =
       splitNumbers(currentNumbers);
-    if (newResult.sign === "+") {
-      setResult(Number(newResult.numbers[0]) + Number(newResult.numbers[1]));
-      setShowResult(true);
-    }
-    /*currentNumbers.map((str) => str.split("+"));
-    let outcome;
-    switch (currentSign) {
+
+    switch (newResult.sign) {
       case "+":
-        outcome = Number(currentNumbers[0]) + Number(currentNumbers[1]);
-        setResult([outcome]);
-        setShowResult(!showResult);
+        setResult(Number(newResult.numbers[0]) + Number(newResult.numbers[1]));
+        setShowResult(true);
         break;
       case "-":
-        outcome = Number(currentNumbers[0]) - Number(currentNumbers[1]);
-        setResult([outcome]);
-        setShowResult(!showResult);
+        setResult(Number(newResult.numbers[0]) - Number(newResult.numbers[1]));
+        setShowResult(true);
         break;
       case "*":
-        outcome = Number(currentNumbers[0]) * Number(currentNumbers[1]);
-        setResult([outcome]);
-        setShowResult(!showResult);
+        setResult(Number(newResult.numbers[0]) * Number(newResult.numbers[1]));
+        setShowResult(true);
         break;
       case "x":
-        outcome = Number(currentNumbers[0]) * Number(currentNumbers[1]);
-        setResult([outcome]);
-        setShowResult(!showResult);
+        setResult(Number(newResult.numbers[0]) * Number(newResult.numbers[1]));
+        setShowResult(true);
         break;
       case "/":
-        outcome = Number(currentNumbers[0]) / Number(currentNumbers[1]);
-        setResult([outcome]);
-        setShowResult(!showResult);
+        setResult(Number(newResult.numbers[0]) / Number(newResult.numbers[1]));
+        setShowResult(true);
         break;
       case "DEL":
-        outcome = Number(currentNumbers[0]) / Number(currentNumbers[1]);
-        setResult([outcome]);
-        setShowResult(!showResult);
+        setResult(Number(newResult.numbers[0]) / Number(newResult.numbers[1]));
+        setShowResult(true);
         break;
-    }*/
+    }
   }
 
   const blockOne = numbersData.allNumbers.map((value: number | string) => (
-    <InputField value={value} setCurrentNumbers={setCurrentNumbers} />
+    <InputField
+      key={value}
+      value={value}
+      setCurrentNumbers={setCurrentNumbers}
+    />
   ));
 
   const reset = () => {
